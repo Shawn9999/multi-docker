@@ -21,6 +21,11 @@ after_success:
   - docker build -t multi-worker ./worker 
   # login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # tag the image before pushing to avoid access denied
+  - docker tag multi-client shazhu/multi-client
+  - docker tag multi-nginx shazhu/multi-nginx
+  - docker tag multi-server shazhu/multi-server
+  - docker tag multi-worker shazhu/multi-worker
   # Take the images and push them to docker hub
   - docker push multi-client  
   - docker push multi-nginx  
