@@ -22,10 +22,10 @@ after_success:
   # login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take the images and push them to docker hub
-  - docker push shazhu/multi-client  
-  - docker push shazhu/multi-nginx  
-  - docker push shazhu/multi-server  
-  - docker push shazhu/multi-worker  
+  - docker push multi-client  
+  - docker push multi-nginx  
+  - docker push multi-server  
+  - docker push multi-worker  
 
 
 
