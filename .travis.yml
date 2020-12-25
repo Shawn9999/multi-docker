@@ -8,22 +8,26 @@ services:
 # series of steps before tests are run 
 before_install:
   # to build docker image. The tag should be user/repo_name as common pratice. The tag is only used inside travis here
-  - docker build -t docker-react -f Dockerfile.dev .
-  # invalid argument "Shawn9999/docker-react" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+  - docker build -t multi-docker -f ./client/Dockerfile.dev ./client
+  # invalid argument "Shawn9999/multi-docker" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
 script:
-  # - docker run docker-react npm run test -- --coverage
-  - docker run -e CI=true docker-react npm run test
+  # - docker run multi-docker npm run test -- --coverage
+  - docker run -e CI=true multi-docker npm run test
 
-deploy:
-  provider: elasticbeanstalk 
-    region: "us-east-1"
-    app: "docker"
-    env: "Docker-env"
-    bucket_name: "....."
-    bucket_path: "docker"
-    on: 
-      branch: master 
+after_success:
+  - docker build -t multi-client ./client 
+  - docker build -t multi-nginx ./nginx 
+  - docker build -t multi-server ./server 
+  - docker build -t multi-worker ./worker 
+  # login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take the images and push them to docker hub
+  - docker push multi-client  
+  - docker push multi-nginx  
+  - docker push multi-server  
+  - docker push multi-worker  
 
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: "$AWS_SECRET_KEY"
+
+
+
     
