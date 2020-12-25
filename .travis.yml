@@ -27,10 +27,10 @@ after_success:
   - docker tag multi-server shazhu/multi-server
   - docker tag multi-worker shazhu/multi-worker
   # Take the images and push them to docker hub
-  - docker push multi-client  
-  - docker push multi-nginx  
-  - docker push multi-server  
-  - docker push multi-worker  
+  - docker push shazhu/multi-client  
+  - docker push shazhu/multi-nginx  
+  - docker push shazhu/multi-server  
+  - docker push shazhu/multi-worker  
 
 
 
