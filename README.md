@@ -1,8 +1,24 @@
 
+## This is the 4th projec in Docker
+* docker-compose
+* complex multiple docker
+* nginx
+* dev vs production
+* Travis CI
+
+### 2 Nginx servers
+* See Section 10: A Continuous Integration Workflow for Multiple Images 152. Multiple Nginx Instances
+* `./nginx` is for routing traffic from outside to react and api
+* `./client/nginx` is for serving static files for react.
+    * We don't have this folder in `3-docker-react` is because there is only one nginx in that project and we expose port 80 and map port in command 8080:80
+    * Since `./nginx` already takes the port 80 to accept traffic from outside for routing, `./client/nginx` need to expose port 3000 to accept traffic coming from `./nginx`
+        
 ## Deploy locally
 * Deploy `docker-compose up --build`
 * Test on `localhost:3050`
+    * working
 * Cleanup `docker-compose down`
+* login session can be either `/home/sha$` or `root#`. It doesn't matter as long as both account has .docker configured.
 
 
 ## Deploy to Production
