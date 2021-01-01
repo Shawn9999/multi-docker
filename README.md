@@ -1,4 +1,10 @@
 
+## Deploy locally
+* Deploy `docker-compose up --build`
+* Test on `localhost:3050`
+* Cleanup `docker-compose down`
+
+
 ## Deploy to Production
 * docker-compose.yml is only used for dev local test
 * .travis.yml and Dockerrun.aws.json are used for production deployment

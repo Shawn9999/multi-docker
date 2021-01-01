@@ -17,3 +17,10 @@ sub.on('message', (channel, message) => {
   redisClient.hset('values', message, fib(parseInt(message)));
 });
 sub.subscribe('insert');
+
+/***********************************************************  
+* worker only communicate with redis: 
+* 1) watch redis for new new indices, pulls each new indice
+* 2) calculate new value then puts it back into redis 
+* workflow: react -> api -> redis -> worker 
+***********************************************************/

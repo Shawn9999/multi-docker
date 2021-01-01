@@ -21,7 +21,7 @@ const pgClient = new Pool({
 
 pgClient.on('connect', () => {
   pgClient
-    .query('CREATE TABLE IF NOT EXISTS public.values (number INT)')
+    .query('CREATE TABLE IF NOT EXISTS values (number INT)')
     .catch((err) => console.log(err));
 });
 
@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/values/all', async (req, res) => {
-  const values = await pgClient.query('SELECT * from public.values');
+  const values = await pgClient.query('SELECT * from values');
 
   res.send(values.rows);
 });
@@ -61,7 +61,7 @@ app.post('/values', async (req, res) => {
 
   redisClient.hset('values', index, 'Nothing yet!');
   redisPublisher.publish('insert', index);
-  pgClient.query('INSERT INTO public.values(number) VALUES($1)', [parseInt(index) ]);
+  pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
 
   res.send({ working: true });
 });
